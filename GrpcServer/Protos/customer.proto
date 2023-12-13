@@ -4,6 +4,7 @@ option csharp_namespace = "GrpcServer";
 
 service Customer{
 	rpc CustomerTransfer (PostCustomerData) returns (GetCustomers);
+	rpc CustomerStreamingTransfer (GetCustomersByStreaming) returns (stream GetCustomers);
 }
 message PostCustomerData{
 	int32 custId = 1;
@@ -14,4 +15,8 @@ message GetCustomers{
 	int32 age = 3;
 	string gender = 4;
 	bool ispremium = 5;
+}
+message GetCustomersByStreaming
+{
+
 }

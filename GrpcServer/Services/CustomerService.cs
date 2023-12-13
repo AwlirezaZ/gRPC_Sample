@@ -32,5 +32,48 @@ namespace GrpcServer.Services
             }
             return Task.FromResult(customer);
         }
+        public override async Task CustomerStreamingTransfer(GetCustomersByStreaming request, IServerStreamWriter<GetCustomers> responseStream, ServerCallContext context)
+        {
+            var customers = new List<GetCustomers>()
+            {
+                new GetCustomers()
+                {
+                    Id = 1,
+                    Age = 21,
+                    Gender = "Male",
+                    Ispremium = false,
+                    Name = "Ferdinand"
+                },
+                new GetCustomers()
+                {
+                    Id = 2,
+                    Age = 13,
+                    Gender = "Male",
+                    Ispremium = true,
+                    Name = "Mike"
+                },
+                new GetCustomers()
+                {
+                    Id = 3,
+                    Age = 19,
+                    Gender = "Female",
+                    Ispremium = false,
+                    Name = "Jane"
+                },
+                 new GetCustomers()
+                {
+                    Id =4,
+                    Age = 26,
+                    Gender = "Male",
+                    Ispremium = true,
+                    Name = "Bron"
+                }
+            };
+            foreach (var customer in customers)
+            {
+                Task.Delay(2000).Wait();
+               await responseStream.WriteAsync(customer);
+            }
+        }
     }
 }
