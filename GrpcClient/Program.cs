@@ -2,8 +2,14 @@
 using GrpcClient;
 
 var channel = GrpcChannel.ForAddress("https://localhost:7254");
-var input = new HelloRequest { Name="Alireza",Age = 22,IsHim = true };
-var client = new Greeter.GreeterClient(channel);
-var answer = client.SayHello(input);
-Console.WriteLine(answer.Message);
+var greetInput = new HelloRequest { Name="Alireza",Age = 22,IsHim = true };
+var greetClient = new Greeter.GreeterClient(channel);
+var greetAnswer = greetClient.SayHello(greetInput);
+Console.WriteLine(greetAnswer.Message);
+Console.WriteLine();
+var customerInput = new PostCustomerData { CustId = 2 };
+var customerClient = new Customer.CustomerClient(channel);
+var customerAnswer = customerClient.CustomerTransfer(customerInput);
+
+Console.WriteLine($"{customerAnswer.Id} {customerAnswer.Name} {customerAnswer.Gender} {customerAnswer.Ispremium} {customerAnswer.Age}");
 Console.ReadKey();

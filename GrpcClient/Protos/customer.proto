@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+service Customer{
+	rpc CustomerTransfer (PostCustomerData) returns (GetCustomers);
+}
+message PostCustomerData{
+	int32 custId = 1;
+}
+message GetCustomers{
+	int32 id = 1;
+	string name = 2;
+	int32 age = 3;
+	string gender = 4;
+	bool ispremium = 5;
+}
